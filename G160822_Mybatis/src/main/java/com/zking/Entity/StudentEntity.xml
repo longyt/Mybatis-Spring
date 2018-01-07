@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zking.dao.StudentDao">
+    <select id="getAllStudnet" resultType="com.zking.Entity.StudentEntity" parameterType="com.zking.Entity.StudentEntity">
+        select * from student
+        <where>
+            <if test="sid!=null">
+                AND sid=#{sid}
+            </if>
+            <if test="age!=null">
+                AND age=#{age}
+            </if>
+            <if test="sex!=null and sex!='' ">
+                AND sex=#{sex}
+            </if>
+            <if test="sname!=null and sname!='' ">
+                AND sname=#{sname}
+            </if>
+        </where>
+    </select>
+    <select id="getStudent" parameterType="int" resultType="com.zking.Entity.StudentEntity">
+      select * from student where sid=#{sid};
+    </select>
+    <insert id="InsertStudent" parameterType="com.zking.Entity.StudentEntity" >
+        INSERT INTO student (age, sex, sname)VALUES(#{age}, #{sex}, #{sname});
+    </insert>
+    <update id="updateStudent" parameterType="com.zking.Entity.StudentEntity">
+        UPDATE student SET age=#{age}, sex=#{sex}, sname=#{sname}  where sid=#{sid}
+    </update>
+    <delete id="deleteStudent" parameterType="int">
+        DELETE from  student where sid=#{sid}
+    </delete>
+    <select id="SearchStudent" parameterType="com.zking.Entity.StudentEntity" resultType="com.zking.Entity.StudentEntity">
+        select * from student
+        <where>
+            <if test="sid!=null">
+                AND sid=#{sid}
+            </if>
+        </where>
+    </select>
+</mapper>
